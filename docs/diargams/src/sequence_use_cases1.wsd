@@ -1,0 +1,3 @@
+@startuml Получение данных по датчикам в теплицах
+
+participant Controller
