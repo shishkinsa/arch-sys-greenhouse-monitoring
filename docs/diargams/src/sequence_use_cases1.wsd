@@ -1,9 +1,14 @@
-@startuml Онлайн мониторинг теплицы
+@startuml Online_Monitor_Greenhouse
 
-person Person
+actor Employee
 participant CNT_GM_Web
 participant CNT_GM_WebApi
 participant CNT_GM_DB
+autonumber
+skinparam SequenceMessageAlignment center
 
-
-group Получить перечня
+group Получить список теплиц и видеокамер
+    Employee -> CNT_GM_Web: web, открытие формы со списком теплиц
+    CNT_GM_Web -> CNT_GM_WebApi: REST, получить список таблиц \n GET:\api\v1\greenhouses
+    CNT_GM_WebApi --> CNT_GM_Web: HTTP 200, json:GreenhousesDTO
+end
