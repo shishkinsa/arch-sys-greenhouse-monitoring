@@ -1,6 +1,9 @@
-@startuml Получение данных по датчикам в теплица
+@startuml Онлайн мониторинг теплицы
 
 person Person
 participant CNT_GM_Web
 participant CNT_GM_WebApi
 participant CNT_GM_DB
+
+
+group Получить перечня

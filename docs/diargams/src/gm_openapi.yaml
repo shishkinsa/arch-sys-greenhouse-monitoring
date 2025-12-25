@@ -1,0 +1,51 @@
+openapi: "3.0.3"
+info:
+  title: API Greenhouse Monitoring
+  version: 1.0.1
+  description: "26.08.2025"
+tags:
+  - name: Common
+    description: Общие операции
+  - name: DigitalController
+    description: Операции по получению данных с цифровых датчиков
+  - name: VideoCamera
+    description: Операции по получению видеоконтента
+paths:
+  /edit_tasks_status:
+    post:
+      summary: ""
+      tags:
+        - Adaptation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - error
+                - errorText
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: "Неуспешная отправка"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                  - errorText
+                properties:
+                  error:
+                    description: Код ошибки
+                    type: number
+                    example: 1
+                  errorText:
+                    description: Текст ошибки
+                    type: string
+                    example: Не найдена Адаптация по переданному ID
+                  result:
+                    description: Код результата
+                    type: string
+                    example: success
