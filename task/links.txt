@@ -1,12 +1,20 @@
 https://flussonic.ru/blog/news/rtsp-translyaciya
-https://www.programmerall.com/article/38052754928/
-https://habr.com/ru/companies/flashphoner/articles/337112/
-https://habr.com/ru/companies/flashphoner/articles/478884/
-https://habr.com/ru/companies/flashphoner/articles/337112/
-https://habr.com/ru/companies/otus/articles/719566/
+- https://www.programmerall.com/article/38052754928/
++https://habr.com/ru/companies/flashphoner/articles/337112/
++++https://habr.com/ru/companies/flashphoner/articles/478884/
++https://habr.com/ru/companies/flashphoner/articles/337112/
+Потоковая обработка: https://habr.com/ru/companies/otus/articles/719566/
 https://habr.com/ru/articles/501250/
 https://www.rabbitmq.com/tutorials/tutorial-one-dotnet
 https://www.rabbitmq.com/docs/mqtt
 https://habr.com/ru/companies/ruvds/articles/957394/
 https://habr.com/ru/articles/463669/
 https://narodstream.ru/esp32-urok-43-mqtt-peredayom-temperaturu-s-datchika-ds18b20/
+
+
+Для работы с платформой Web Call Server 5.2 требуется сервер на базе Linux. Минимальные характеристики: 
+docs.flashphoner.com
+docs.flashphoner.com
+2 гигабайта оперативной памяти;
+10 гигабайт места на диске;
+1 ядро процессора.
