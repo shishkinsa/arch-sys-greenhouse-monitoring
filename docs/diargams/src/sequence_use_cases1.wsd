@@ -1,3 +1,6 @@
-@startuml Получение данных по датчикам в теплицах
+@startuml Получение данных по датчикам в теплица
 
-participant Controller
+person Person
+participant CNT_GM_Web
+participant CNT_GM_WebApi
+participant CNT_GM_DB
