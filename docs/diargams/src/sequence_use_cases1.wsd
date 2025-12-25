@@ -4,11 +4,26 @@ actor Employee
 participant CNT_GM_Web
 participant CNT_GM_WebApi
 participant CNT_GM_DB
-autonumber
+
 skinparam SequenceMessageAlignment center
 
-group Получить список теплиц и видеокамер
+autonumber 1
+group Получить список теплиц
     Employee -> CNT_GM_Web: web, открытие формы со списком теплиц
-    CNT_GM_Web -> CNT_GM_WebApi: REST, получить список таблиц \n GET:\api\v1\greenhouses
+    CNT_GM_Web -> CNT_GM_WebApi: REST, получить список теблиц \n GET:\api\v1\organisations\{id}\greenhouses
+    CNT_GM_WebApi -> CNT_GM_DB: sql, получить спикок теплиц в организации
+    CNT_GM_DB --> CNT_GM_WebApi: tcp, список теплиц
     CNT_GM_WebApi --> CNT_GM_Web: HTTP 200, json:GreenhousesDTO
+    CNT_GM_Web --> Employee: web, отобразить перечень теплиц
+end
+group Получить список видеокамер в теблице
+    Employee -> CNT_GM_Web: web, открытие карточки теплицы
+    CNT_GM_Web -> CNT_GM_WebApi: REST, получить список видеокамер в теплице \n GET:\api\v1\greenhouses\{id}\video-cameras
+    CNT_GM_WebApi -> CNT_GM_DB: sql, получить спикок видеокамер
+    CNT_GM_DB --> CNT_GM_WebApi: tcp, список теплиц видеокамер в  теплице
+    CNT_GM_WebApi --> CNT_GM_Web: HTTP 200, json:VideoCamerasDTO
+    CNT_GM_Web --> Employee: web, отобразить перечень камер в теблице
+end
+group Просмотр видеопотока с камеры
+    
 end
