@@ -32,6 +32,8 @@
 
 ## 3. Диаграмма развертывания
 
+![Local Image](./docs/diargams/images/deployment_diagram.png)
+
 ## 4. ER диаграмма
 
 ![Local Image](./docs/diargams/images/gm_er.png)
