@@ -4,6 +4,9 @@ actor Employee
 participant CNT_GM_Web
 participant CNT_GM_WebApi
 participant CNT_GM_DB
+participant CNT_GM_WebRTCServer
+participant CNT_GM_Secrets
+participant CNT_VideoCamera
 
 skinparam SequenceMessageAlignment center
 
@@ -25,5 +28,12 @@ group Получить список видеокамер в теблице
     CNT_GM_Web --> Employee: web, отобразить перечень камер в теблице
 end
 group Просмотр видеопотока с камеры
-    
+    Employee -> CNT_GM_Web: web, переход к конкретной камере для просмотра видео
+    CNT_GM_Web -> CNT_GM_WebRTCServer: websocket, инициализация получения видео с выбранной камеры \n GET:\api\v1\video-cameras\{id}\video
+    CNT_GM_WebRTCServer -> CNT_GM_Secrets: 8200/TCP, получить секреты по выбранной камере
+    CNT_GM_Secrets --> CNT_GM_WebRTCServer: 8200/TCP, секреты
+    CNT_GM_WebRTCServer -> CNT_VideoCamera: TCP/RTSP, запрос получение видео
+    CNT_VideoCamera -> CNT_GM_WebRTCServer: UDP/RTC, трансляция видео
+    CNT_GM_WebRTCServer--> CNT_GM_Web: WebSocet, MSE, трансляция видео
+    CNT_GM_Web --> Employee: web, отображение видео работнику
 end
