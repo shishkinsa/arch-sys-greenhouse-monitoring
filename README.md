@@ -25,3 +25,10 @@
 ### 2.1 Просмотр видео и данных с датчиков в реальном времени
 
 ![Local Image](./docs/diargams/images/Online_Monitor_Greenhouse.png)
+
+
+## 3. Диаграмма развертывания
+
+## 4. ER диаграмма
+
+![Local Image](./docs/diargams/images/gm_er.png)
