@@ -26,7 +26,7 @@
 
 ![Local Image](./docs/diargams/images/Online_Monitor_Greenhouse.png)
 
-### 2.2 Анализ данных с датичиков и просмот архивного видео по заданным параметрам
+### 2.2 Анализ данных с датичиков и просмотр архивного видео по заданным параметрам
 
 ![Local Image](./docs/diargams/images/History_Monitor_Greenhouse.png)
 
