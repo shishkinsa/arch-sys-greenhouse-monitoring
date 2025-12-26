@@ -26,7 +26,6 @@
 
 ![Local Image](./docs/diargams/images/Online_Monitor_Greenhouse.png)
 
-
 ## 3. Диаграмма развертывания
 
 ## 4. ER диаграмма
