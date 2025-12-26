@@ -15,7 +15,7 @@ paths:
     post:
       summary: ""
       tags:
-        - Adaptation
+        - Common
       requestBody:
         content:
           application/json:
@@ -27,25 +27,3 @@ paths:
       responses:
         "200":
           description: ""
-        "400":
-          description: "Неуспешная отправка"
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - error
-                  - errorText
-                properties:
-                  error:
-                    description: Код ошибки
-                    type: number
-                    example: 1
-                  errorText:
-                    description: Текст ошибки
-                    type: string
-                    example: Не найдена Адаптация по переданному ID
-                  result:
-                    description: Код результата
-                    type: string
-                    example: success

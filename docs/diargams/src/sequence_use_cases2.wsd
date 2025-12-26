@@ -1,4 +1,4 @@
-@startuml Online_Monitor_Greenhouse
+@startuml History_Monitor_Greenhouse
 
 actor Employee
 participant CNT_GM_Web
@@ -28,25 +28,21 @@ group Получить список видеокамер в теблице
     CNT_GM_WebApi --> CNT_GM_Web: HTTP 200, json:VideoCamerasDTO
     CNT_GM_Web --> Employee: web, отобразить перечень камер в теблице
 end
-group Просмотр видеопотока с камеры и оперативных значение параметров датчиков
-    Employee -> CNT_GM_Web: web, переход к конкретной камере для просмотра видео
-    CNT_GM_Web -> CNT_GM_WebRTCServer: websocket, инициализация получения видео с выбранной камеры \n GET:\api\v1\video-cameras\{id}\video
+group Анализ данных по датчикам
+    Employee -> CNT_GM_Web: web, набирает произвольные арифметико-логические выражения для анализа
+    CNT_GM_Web -> CNT_GM_WebApi: HTTP, GraphQL: \api\v1\sensor-analytics
+    CNT_GM_WebApi -> CNT_GM_TimeSeries_DB: 8443/TCP, получить данные
+    CNT_GM_TimeSeries_DB --> CNT_GM_WebApi:  8443/TCP, данные по датчикам
+    CNT_GM_WebApi --> CNT_GM_Web: HTTP, GraphQL, данные податчикам
+    CNT_GM_Web --> Employee: web, отображение данных по датчикам
+end
+group Получить видео с камер по заданным критерия
+    Employee -> CNT_GM_Web: web, указывает параметры для запроса данных с камеры
+    CNT_GM_Web -> CNT_GM_WebRTCServer: websocket, инициализация получения видео с выбранной камеры \n GET:\api\v1\video-cameras\{id}\video\archive?{time_begin}&{time_end}
     CNT_GM_WebRTCServer -> CNT_GM_Secrets: 8200/TCP, получить секреты по выбранной камере
     CNT_GM_Secrets --> CNT_GM_WebRTCServer: 8200/TCP, секреты
-    CNT_GM_WebRTCServer -> CNT_VideoCamera: TCP/RTSP, запрос получение видео
+    CNT_GM_WebRTCServer -> CNT_VideoCamera: TCP/RTSP, запрос получениz видео
     CNT_VideoCamera -> CNT_GM_WebRTCServer: UDP/RTC, трансляция видео
     CNT_GM_WebRTCServer--> CNT_GM_Web: WebSocet, MSE, трансляция видео
     CNT_GM_Web --> Employee: web, отображение видео работнику
-
-    CNT_GM_Web ->CNT_GM_WebApi: websockt, инициализация получения данных с датчиков с теплицы\n GET:\api\v1\greenhouses\{id}\sensor-online-values
-    CNT_GM_WebApi -> CNT_GM_Redis_DB: 6379/TCP/RESP, чтение текущих данных из КЭША
-    CNT_GM_WebApi -> CNT_GM_Web: websocket, данные по датчикам
-
-    loop Мониторинг поступлния новых данных
-        CNT_GM_Broker -> CNT_GM_WebApi: 5672/AMQP, получение новых данных по датчику
-        opt Если есть новое значение
-            CNT_GM_WebApi --> CNT_GM_Web: websocket, обновить значения на web
-        end
-    end
-    CNT_GM_Web --> Employee: web, отобразить пользователю текущие показания датчиков
 end
