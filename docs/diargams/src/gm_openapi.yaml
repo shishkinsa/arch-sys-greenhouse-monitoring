@@ -2,7 +2,7 @@ openapi: "3.0.3"
 info:
   title: API Greenhouse Monitoring
   version: 1.0.1
-  description: "26.08.2025"
+  description: "14.01.2026"
 tags:
   - name: Common
     description: Общие операции
@@ -10,10 +10,22 @@ tags:
     description: Операции по получению данных с цифровых датчиков
   - name: VideoCamera
     description: Операции по получению видеоконтента
+definitions:
+  GraphQLQuery:
+    type: "object"
+    properties:
+      query:
+        type: "string"
+  GraphQLResponse:
+    type: "object"
+    properties:
+      data:
+        type: "object"
 paths:
-  /edit_tasks_status:
-    post:
-      summary: ""
+  /api/v1/organisations/{id}/greenhouses:
+    description: Получить список теплиц
+    get:
+      summary: Список теплиц
       tags:
         - Common
       requestBody:
@@ -27,3 +39,56 @@ paths:
       responses:
         "200":
           description: ""
+  /api/v1/greenhouses/{id}/video-cameras:
+    description: Получить список видеокамер в теплице
+    get:
+      summary:
+  /api/v1/video-cameras/{id}/video:
+    description: Просмотр видеопотока с камеры
+    get:
+      summary: Получение видеопотока с камеры из теплицы
+      tag: 
+        - VideoCamera
+      responses:
+        "101":
+          description: Switching Protocols  
+  /api/v1/video-cameras/{id}/video/archive?{time_begin}&{time_end}/video:
+    description: Получить архивное видео с камер 
+    get:
+      summary: Получение архивного видео с камеры
+      tag: 
+        - VideoCamera
+      responses:
+        "101":
+          description: Switching Protocols
+  /api/v1/greenhouses/{id}/sensor-online-values:
+    description: Получение данных с датчиков с теплицы
+    get:
+      summary: Получение данных с датчиков с теплицы
+      tags:
+       - DigitalController
+      responses:
+        "101":
+          description: Switching Protocols
+  /api/v1/sensor-analytics:
+    description: Анализ данных по датчикам
+    get:
+      summary: Данные по датчикам в соответсвии с запровом GraphQL
+    post:
+      summary: "GraphQL"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GraphQLResponse"
+      parameters:
+        - in: body
+          name: body
+          description: "GraphQL query"
+          required: true
+          schema:
+            $ref: "#/definitions/GraphQLQuery" 

@@ -38,7 +38,7 @@ group Просмотр видеопотока с камеры и операти�
     CNT_GM_WebRTCServer--> CNT_GM_Web: WebSocet, MSE, трансляция видео
     CNT_GM_Web --> Employee: web, отображение видео работнику
 
-    CNT_GM_Web ->CNT_GM_WebApi: websockt, инициализация получения данных с датчиков с теплицы\n GET:\api\v1\greenhouses\{id}\sensor-online-values
+    CNT_GM_Web ->CNT_GM_WebApi: websocket, инициализация получения данных с датчиков с теплицы\n GET:\api\v1\greenhouses\{id}\sensor-online-values
     CNT_GM_WebApi -> CNT_GM_Redis_DB: 6379/TCP/RESP, чтение текущих данных из КЭША
     CNT_GM_WebApi -> CNT_GM_Web: websocket, данные по датчикам
 

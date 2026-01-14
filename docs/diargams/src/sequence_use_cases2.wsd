@@ -36,7 +36,7 @@ group Анализ данных по датчикам
     CNT_GM_WebApi --> CNT_GM_Web: HTTP, GraphQL, данные податчикам
     CNT_GM_Web --> Employee: web, отображение данных по датчикам
 end
-group Получить видео с камер по заданным критерия
+group Получить видео с камер по заданным критериям
     Employee -> CNT_GM_Web: web, указывает параметры для запроса данных с камеры
     CNT_GM_Web -> CNT_GM_WebRTCServer: websocket, инициализация получения видео с выбранной камеры \n GET:\api\v1\video-cameras\{id}\video\archive?{time_begin}&{time_end}
     CNT_GM_WebRTCServer -> CNT_GM_Secrets: 8200/TCP, получить секреты по выбранной камере
