@@ -10,17 +10,6 @@ tags:
     description: Операции по получению данных с цифровых датчиков
   - name: VideoCamera
     description: Операции по получению видеоконтента
-definitions:
-  GraphQLQuery:
-    type: "object"
-    properties:
-      query:
-        type: "string"
-  GraphQLResponse:
-    type: "object"
-    properties:
-      data:
-        type: "object"
 paths:
   /api/v1/organisations/{id}/greenhouses:
     description: Получить список теплиц
@@ -28,35 +17,101 @@ paths:
       summary: Список теплиц
       tags:
         - Common
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - error
-                - errorText
+      parameters:
+        - name: id
+          description: Идентификатор организации пользователя
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
-          description: ""
+          description: GreenhousesDTO
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - organisationId
+                  properties:
+                    id:
+                      description: Идентификатор теплицы
+                      type: integer
+                      example: 1
+                    name:
+                      description: Наименование теплицы
+                      type: string
+                      example: Теплица 1
+                    organisationId:
+                      description: Идентификатор организации
+                      type: integer
+                      example: 1
+                    address:
+                      description: Адрес теплицы
+                      type: string
+                      example: Россия, Московская область, город Рязань
   /api/v1/greenhouses/{id}/video-cameras:
     description: Получить список видеокамер в теплице
     get:
-      summary:
+      summary: Список видеокамер в теплице
+      tags:
+        - Common
+      parameters:
+        - name: id
+          description: Идентификатор теплцы
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: VideoCamerasDTO
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - greenhouseId
+                    - ipAddress
+                  properties:
+                    id:
+                      description: Идентификатор камеры
+                      type: integer
+                      example: 1
+                    name:
+                      description: Наименование камеры
+                      type: string
+                      example: Камера 1
+                    greenhouseId:
+                      description: Идентификатор теплицы
+                      type: integer
+                      example: 1
+                    ipAddress:
+                      description: IP адрес теплицы
+                      type: string
+                      example: 10.14.225.101
   /api/v1/video-cameras/{id}/video:
     description: Просмотр видеопотока с камеры
     get:
       summary: Получение видеопотока с камеры из теплицы
-      tag: 
+      tags:
         - VideoCamera
       responses:
         "101":
-          description: Switching Protocols  
+          description: Switching Protocols
   /api/v1/video-cameras/{id}/video/archive?{time_begin}&{time_end}/video:
-    description: Получить архивное видео с камер 
+    description: Получить архивное видео с камер
     get:
       summary: Получение архивного видео с камеры
-      tag: 
+      tags:
         - VideoCamera
       responses:
         "101":
@@ -72,23 +127,27 @@ paths:
           description: Switching Protocols
   /api/v1/sensor-analytics:
     description: Анализ данных по датчикам
-    get:
-      summary: Данные по датчикам в соответсвии с запровом GraphQL
     post:
-      summary: "GraphQL"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      responses:
-        "200":
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/GraphQLResponse"
+      summary: "GraphQL. Данные по датчикам в соответсвии с запровом GraphQL"
+      tags:
+        - DigitalController
       parameters:
         - in: body
           name: body
           description: "GraphQL query"
           required: true
           schema:
-            $ref: "#/definitions/GraphQLQuery" 
+            type: "object"
+            properties:
+              query:
+                type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  data:
+                    type: "object"
